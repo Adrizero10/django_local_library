@@ -30,11 +30,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cg#p$g+j9tax!#a3cup@1$8obt2_+&
 # DEBUG = True
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['http://the-yogify.herokuapp.com/',
-'https://the-yogify.herokuapp.com/',
-'the-yogify.herokuapp.com',
-'the-yogify.herokuapp.com/',
-'127.0.0.1']
+ALLOWED_HOSTS = ['locallibrary1234.herokuapp.com', '127.0.0.1']
 
 # Application definition
 
