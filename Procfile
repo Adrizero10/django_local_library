@@ -1,1 +1,1 @@
-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
+web: gunicorn locallibrary.wsgi --log-file -
