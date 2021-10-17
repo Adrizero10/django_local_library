@@ -10,8 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import dj_database_url
+import os
 from pathlib import Path
-import os # needed by code below
+import os  # needed by code below
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,8 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = "cg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag"
-import os
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag')
+SECRET_KEY = os.environ.get(
+    'DJANGO_SECRET_KEY', 'cg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -42,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Add our new application
-    'catalog.apps.CatalogConfig', #This object was created for us in /catalog/apps.py
+    'catalog.apps.CatalogConfig',  # This object was created for us in /catalog/apps.py
 ]
 
 
@@ -87,18 +89,21 @@ DATABASES = {
     }
 }
 
-#The following environment variable, called DATABASE_URL, has to be defined
-#at the o.s. level: export DATABASE_URL =
+# The following environment variable, called DATABASE_URL, has to be defined
+# at the o.s. level: export DATABASE_URL =
+# ’postgres://alumnodb:alumnodb@localhost:5432/psi’
+# The following environment variable, called DATABASE_URL, has to be defined
+# at the o.s. level: export DATABASE_URL =
 # ’postgres://alumnodb:alumnodb@localhost:5432/psi’
 DATABASES = {}
 if os.getenv('SQLITE', False):
-    DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    DATABASES['default'] = {'ENGIN': 'django.db.backends.sqlite3', 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+                            }
 else:
     import dj_database_url
-    DATABASES['default'] = dj_database_url.config(default='postgres://alumnodb:alumnodb@localhost:5432/psi', conn_max_age=500)
+    DATABASES['default'] = dj_database_url.config(
+        default='postgres://alumnodb:alumnodb@localhost:5432/psi', conn_max_age=500)
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -152,6 +157,5 @@ LOGIN_REDIRECT_URL = '/'
 
 
 # Heroku: Update database configuration from $DATABASE_URL.
-import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
